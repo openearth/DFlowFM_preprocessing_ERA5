@@ -36,6 +36,12 @@ docker build --tag getera:1.0 .
 ```bash
 docker images
 ```
+This should output two images:
+```bash
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+getera                   1.0                 041fb0e18df0        3 minutes ago       1.29GB
+continuumio/miniconda3   latest              52daacd3dd5d        2 months ago        437MB
+```
 - To save the created docker image as a .tar file, run:
 ```bash
 docker image save --output getera.tar getera:1.0
@@ -50,6 +56,12 @@ place the NetCDF files you would like to convert in a folder called 'in'. In a t
 ```bash
 docker run -v Path_to_in_folder:/app/data -t getera:1.0
 ```
-- This will create a era5_FM.nc file. To use this file with your DFlowFM simulation, copy the era5_FM.nc file into your DFlowFM model directory. Ensure that 
-DFlowFM can find it by setting the FILENAME variable in the .ext file to era5_FM.nc
+A test_case folder has been added to this repo. It contains three ERA5 netcdf files in an 'in' folder. Run the test case with:
+```bash
+ docker run -v  D:\PROJECTS\2020\COASTSERV_ALL\openearth_era5\test_case\test_era5\:/app/data -t getera:1.0
+```
+
+- This will create an 'out' folder within the same directory as the 'in' folder.  era5_FM.nc file. To use this file with your DFlowFM simulation, copy the era5_FM.nc file into your DFlowFM model directory. Ensure that 
+DFlowFM can find it by setting the FILENAME variable in the .ext file to era5_FM.nc. **Note: This takes about 20 minutes to run. The era5_FM.nc file should have a size of 
+60889 KB in the end.
 
